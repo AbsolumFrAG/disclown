@@ -189,7 +189,7 @@ function Placeholder() {
       <BoxIcon className="w-20 h-20 text-brand-500 dark:text-brand-400 max-md:hidden" />
       <p className="font-medium text-base text-foreground">Rien ici</p>
       <p className="text-muted-foreground text-sm">
-      Essayez de trouver quelqu&apos;un qui discute avec vous ?
+        Essayez de trouver quelqu&apos;un qui discute avec vous ?
       </p>
     </div>
   );
@@ -201,7 +201,7 @@ Home.useLayout = (children) => (
       breadcrumb={[
         {
           href: "/home",
-          text: "Home",
+          text: "Accueil",
         },
       ]}
     >

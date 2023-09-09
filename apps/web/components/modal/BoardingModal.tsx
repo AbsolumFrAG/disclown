@@ -18,8 +18,8 @@ export default function BoardingModal({
 
   return (
     <SimpleDialog
-      title="Welcome!"
-      description="Start talking on Shark Chat!"
+      title="Bienvenue !"
+      description="Commencez à discuter sur Disclown !"
       open={open}
       onOpenChange={setOpen}
     >

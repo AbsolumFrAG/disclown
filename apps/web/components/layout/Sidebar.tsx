@@ -42,7 +42,7 @@ export default function Sidebar() {
           <XIcon className="w-4 h-4" />
         </button>
         <Link href="/info" prefetch={false} className="font-bold mb-2">
-          Shark Chat
+          Disclown
         </Link>
         <Items />
         <BottomCard />
