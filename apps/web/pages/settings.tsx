@@ -123,7 +123,7 @@ Settings.useLayout = (children) => (
       breadcrumb={[
         {
           href: "/settings",
-          text: "Settings",
+          text: "Paramètres",
         },
       ]}
     />
