@@ -1,78 +1,78 @@
-# Shark Chat
+# Disclown
 
-A Chat app built with Trpc, Tailwind CSS, Ably, Redis, Cloudinary, Drizzle ORM, Next 13.
+Une application de chat construite avec TRPC, Tailwind CSS, Ably, Redis, Cloudinary, Drizzle ORM, Next 13.
 
-This repository is a monorepo ([Turborepo](https://turbo.build/)).
+Ce repository est un monorepo ([Turborepo](https://turbo.build/)).
 
 ![preview](./document/screen_shot.png)
 
-## Features
+## Caractéristiques
 
--   Create, Update, Delete Chat Group
--   Send, Update, Delete Message
--   Markdown (gfm, tables supported) in Messages
--   Reference Messages
--   Message Embeds (Display open-graph data of links in message)
--   Send Images/Files via Message
--   Direct Message with anyone
--   View & Kick Group members
--   Invite Group members via Invite code or Url
--   Upload profile images
--   Show notification when new Message received
--   AI-Powered Message Writer
--   Built-in AI Chatbot (Powered by Inworld)
--   Light & Dark Mode
--   100% Typescript
+- Créer, mettre à jour, supprimer un groupe de discussion
+- Envoyer, mettre à jour, supprimer un message
+- Markdown (gfm, tableaux pris en charge) dans Messages
+- Messages de référence
+- Message Embeds (Afficher les données de Open Graph ouvert des liens dans le message)
+- Envoyer des images/fichiers par message
+- Message direct avec n'importe qui
+- Afficher et kicker les membres du groupe
+- Invitez les membres du groupe via le code d'invitation ou l'URL
+- Modifier sa photo de profil
+- Afficher une notification lorsqu'un nouveau message est reçu
+- Rédacteur de messages alimenté par l'IA
+- Chatbot IA intégré (propulsé par Inworld)
+- Mode clair et sombre
+- 100% Typescript
 
-**Play with it:** https://shark-chat.vercel.app
+**Jouer avec :** https://disclown-web.vercel.app
 <br />
-**Learn More:** https://shark-chat.vercel.app/info
+**En apprendre plus :** https://disclown-web.vercel.app/info
 
-## Play with it Locally
+## Jouez avec localement
 
-Shark Chat integrated with many third-party service for supporting wide spectrum of features and work perfectly on serverless environment.
+Disclown est intégré à de nombreux services tiers pour prendre en charge un large éventail de fonctionnalités et fonctionner parfaitement dans un environnement serverless.
 
-Thus, you have to register an account for each services in order to setup the project correctly before playing with it locally.
-Please fill all environment variables in the [.env.example](/.env.example).
+Ainsi, vous devez créer un compte pour chaque service afin de configurer correctement le projet avant de jouer avec lui localement.
+Veuillez remplir toutes les variables d'environnement dans [.env.example](/.env.example).
 
 ### Upstash
 
-Create a Redis database at their [website](https://upstash.com) and get `REDIS_URL`, `REDIS_TOKEN` from the console.
+Créez une base de données Redis sur leur [site Web](https://upstash.com) et obtenez `REDIS_URL`, `REDIS_TOKEN` depuis la console.
 
 ### Ably Realtime
 
-Create a new project on https://ably.com, paste `ABLY_API_KEY` into environment varibles.
+Créez un nouveau projet sur https://ably.com, collez `ABLY API KEY` dans les variables d'environnement.
 
 ### PlanetScale
 
-By default, it uses Drizzle ORM with PlanetScale for database. You may use other providers if you prefer.
+Par défaut, il utilise Drizzle ORM avec PlanetScale pour la base de données. Vous pouvez utiliser d'autres fournisseurs si vous préférez.
 
-Create a MySQL database at their [dashboard](https://planetscale.com) and get your `DATABASE_URL` and `DATABASE_PUSH_URL`.
+Créez une base de données MySQL sur leur [tableau de bord](https://planetscale.com) et obtenez votre `DATABASE_URL` et `DATABASE_PUSH_URL`.
 
 > Note
 >
-> `DATABASE_PUSH_URL` is used for pushing changes which has pool connections disabled.
+> `DATABASE_PUSH_URL` est utilisé pour pousser les modifications pour lesquelles les connexions au pool sont désactivées.
 
 ### Cloudinary
 
-Create a new project on https://cloudinary.com, copy the cloud name, key and API secret.
+Créez un nouveau projet sur https://cloudinary.com, copiez le nom du cloud, la clé et le secret API.
 
 ### Next Auth
 
-Fill `NEXTAUTH_URL` and `NEXTAUTH_SECRET`, read their [docs](https://next-auth.js.org/getting-started/example) for further details.
+Remplissez `NEXTAUTH_URL` et `NEXTAUTH_SECRET`, lisez leurs [docs](https://next-auth.js.org/getting-started/example) pour plus de détails.
 
-Currently, only Github OAuth is supported. Follow [this guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) to setup the OAuth App on Github, generate a `GITHUB_ID` with `GITHUB_SECRET`.
+Actuellement, seul Github OAuth est pris en charge. Suivez [ce guide](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) pour configurer l'application OAuth sur Github, générez un `GITHUB_ID` avec `GITHUB_SECRET`.
 
-### Development Mode
+### Mode Developpement
 
-Run `pnpm run dev` and edit files to see changes.
+Exécutez `pnpm run dev` et modifiez les fichiers pour voir les modifications.
 
-### Build from Source
+### Build à partir de la Source
 
-This project uses Turborepo and PNPM.
+Ce projet utilise Turborepo et PNPM.
 
 ```bash
 pnpm run build
 ```
 
-It should be able to deploy on Vercel or any other platforms.
+Il devrait pouvoir être déployé sur Vercel ou sur toute autre plateforme.
