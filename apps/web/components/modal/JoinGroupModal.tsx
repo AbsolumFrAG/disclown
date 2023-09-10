@@ -143,7 +143,7 @@ function JoinGroupByName({ onClose }: { onClose: () => void }) {
         className="mt-6 w-full"
         isLoading={joinMutation.isLoading}
       >
-        Join
+        Rejoindre
       </Button>
     </form>
   );
