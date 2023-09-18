@@ -15,7 +15,10 @@ export default function Members({
   group: number;
   isAdmin: boolean;
 }) {
+  // Obtenir l'état de la session de l'utilisateur
   const { status, data } = useSession();
+  
+  // Effectuer une requête pour obtenir la liste des membres du groupe
   const query = trpc.group.member.get.useQuery(
     { groupId: group },
     { enabled: status === "authenticated" }
@@ -24,8 +27,10 @@ export default function Members({
   return (
     <div className="flex flex-col gap-3">
       {query.isLoading ? (
+        // Si la requête est en cours, afficher un indicateur de chargement
         <Skeleton />
       ) : (
+        // Si les données de la requête sont disponibles, afficher les membres
         query.data?.map((member) => (
           <MemberItem
             key={member.user_id}
@@ -38,6 +43,7 @@ export default function Members({
   );
 }
 
+// Composant de l'indicateur de chargement
 function Skeleton() {
   return (
     <>
@@ -56,6 +62,8 @@ function MemberItem({
   canKick: boolean;
 }) {
   const utils = trpc.useContext();
+
+  // Mutation pour exclure un membre du groupe
   const kick = trpc.group.member.kick.useMutation({
     onSuccess(_, { groupId, userId }) {
       utils.group.member.get.setData({ groupId }, (prev) =>
@@ -65,8 +73,10 @@ function MemberItem({
   });
 
   return (
+    // Composant de profil d'utilisateur accessible en cliquant sur le nom d'utilisateur
     <UserProfileModal userId={member.user_id}>
       <div className="flex flex-row items-center gap-3 p-2 rounded-md bg-muted/50 hover:bg-accent">
+        {/* Avatar de l'utilisateur */}
         <DialogTrigger className="flex flex-row items-center">
           <Avatar
             alt="avatar"
@@ -76,9 +86,12 @@ function MemberItem({
           />
         </DialogTrigger>
 
+        {/* Nom de l'utilisateur (cliquable pour ouvrir le profil) */}
         <DialogTrigger asChild>
           <p className="cursor-pointer font-medium">{member.user.name}</p>
         </DialogTrigger>
+        
+        {/* Bouton "Kick" pour exclure le membre (visible pour les administrateurs) */}
         {canKick && (
           <Button
             color="danger"

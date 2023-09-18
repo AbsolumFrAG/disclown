@@ -1,29 +1,31 @@
-import { ImagePicker } from "@/components/input/ImagePicker";
-import { input } from "ui/components/input";
-import { Avatar } from "ui/components/avatar";
-import { Button } from "ui/components/button";
-import { groupIcon } from "shared/media/format";
-import { useUpdateGroupInfoMutation } from "@/utils/hooks/mutations/update-group-info";
-import { Group } from "db/schema";
-import { Serialize } from "shared/types";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { updateGroupSchema } from "shared/schema/group";
-import { UniqueNameInput } from "@/components/input/UniqueNameInput";
+// Importation des dépendances et des composants nécessaires
+import { ImagePicker } from "@/components/input/ImagePicker"; // Composant pour choisir une image
+import { input } from "ui/components/input"; // Composant d'entrée de texte
+import { Avatar } from "ui/components/avatar"; // Composant d'avatar
+import { Button } from "ui/components/button"; // Composant de bouton
+import { groupIcon } from "shared/media/format"; // Icône de groupe
+import { useUpdateGroupInfoMutation } from "@/utils/hooks/mutations/update-group-info"; // Mutation pour mettre à jour les informations du groupe
+import { Group } from "db/schema"; // Schéma de données pour un groupe
+import { Serialize } from "shared/types"; // Type pour la sérialisation des données
+import { useState } from "react"; // Hook React pour gérer l'état
+import { Controller, useForm } from "react-hook-form"; // Hook React pour gérer les formulaires
+import { zodResolver } from "@hookform/resolvers/zod"; // Résolveur pour le schéma Zod
+import { z } from "zod"; // Bibliothèque Zod pour la validation de schémas
+import { updateGroupSchema } from "shared/schema/group"; // Schéma de mise à jour des groupes
+import { UniqueNameInput } from "@/components/input/UniqueNameInput"; // Composant pour un nom unique
 
+// Composant Info pour afficher les informations d'un groupe
 export default function Info({
   group,
   isAdmin,
 }: {
-  group: Group;
-  isAdmin: boolean;
+  group: Group; // Données du groupe
+  isAdmin: boolean; // Indique si l'utilisateur est un administrateur
 }) {
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(false); // État pour activer/désactiver le mode édition
 
-  if (edit)
-    return <EditGroupPanel group={group} onCancel={() => setEdit(false)} />;
+  // Si le mode édition est activé, affiche le composant EditGroupPanel, sinon affiche les informations du groupe
+  if (edit) return <EditGroupPanel group={group} onCancel={() => setEdit(false)} />;
 
   return (
     <div className="flex flex-col">
@@ -33,8 +35,8 @@ export default function Info({
           <Avatar
             size="xlarge"
             className="border-4 border-background"
-            src={groupIcon.url([group.id], group.icon_hash)}
-            fallback={group.name}
+            src={groupIcon.url([group.id], group.icon_hash)} // Affiche l'avatar du groupe
+            fallback={group.name} // Affiche le nom du groupe en cas d'absence d'avatar
           />
           {isAdmin && (
             <div className="flex flex-row gap-3">
@@ -58,22 +60,24 @@ export default function Info({
   );
 }
 
+// Schéma pour valider les données du formulaire de mise à jour du groupe
 const schema = updateGroupSchema
   .omit({ groupId: true, icon_hash: true })
   .extend({
     icon: z.string().optional(),
   });
 
+// Composant EditGroupPanel pour éditer les informations d'un groupe
 function EditGroupPanel({
   group,
   onCancel,
 }: {
-  group: Serialize<Group>;
-  onCancel: () => void;
+  group: Serialize<Group>; // Données du groupe
+  onCancel: () => void; // Fonction pour annuler l'édition
 }) {
-  const mutation = useUpdateGroupInfoMutation();
+  const mutation = useUpdateGroupInfoMutation(); // Mutation pour mettre à jour les informations du groupe
   const { register, handleSubmit, control } = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema), // Utilisation du résolveur Zod pour valider le formulaire
     defaultValues: {
       unique_name: group.unique_name,
       name: group.name,
@@ -81,11 +85,12 @@ function EditGroupPanel({
     },
   });
 
+  // Fonction pour sauvegarder les modifications du groupe
   const onSave = handleSubmit((values) => {
     mutation.mutate(
       { groupId: group.id, ...values },
       {
-        onSuccess: onCancel,
+        onSuccess: onCancel, // En cas de succès, annule l'édition
       }
     );
   });
@@ -98,8 +103,8 @@ function EditGroupPanel({
         render={({ field: { value, onChange, ...field } }) => (
           <ImagePicker
             input={{ id: "icon", ...field }}
-            value={value ?? groupIcon.url([group.id], group.icon_hash)}
-            onChange={onChange}
+            value={value ?? groupIcon.url([group.id], group.icon_hash)} // Affiche l'image actuelle ou l'image sélectionnée
+            onChange={onChange} // Gère le changement de l'image
             previewClassName="w-[150px] h-[150px] max-w-full"
           />
         )}

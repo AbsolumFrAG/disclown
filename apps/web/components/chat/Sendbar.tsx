@@ -11,8 +11,10 @@ import { z } from "zod";
 import dynamic from "next/dynamic";
 import { ChevronDownIcon } from "lucide-react";
 
+// Chargez dynamiquement le composant GenerateTextModal
 const GenerateTextModal = dynamic(() => import("../modal/GenerateTextModal"));
 
+// Schéma pour la validation des données du formulaire
 const schema = z
   .object({
     content: contentSchema,

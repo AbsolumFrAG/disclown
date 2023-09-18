@@ -1,12 +1,20 @@
+// Importe React et les composants de toast depuis "@radix-ui/react-toast".
 import * as React from "react";
 import * as ToastPrimitives from "@radix-ui/react-toast";
+
+// Importe l'icône XIcon depuis "lucide-react" pour être utilisée dans les toasts.
 import { XIcon } from "lucide-react";
 
+// Importe une fonction utilitaire "cn" depuis "../utils/cn".
 import { cn } from "../utils/cn";
+
+// Importe la fonction "tv" et le type "VariantProps" depuis "tailwind-variants".
 import { tv, type VariantProps } from "tailwind-variants";
 
+// Alias pour le composant "Provider" de toast.
 const ToastProvider = ToastPrimitives.Provider;
 
+// Définit le composant "ToastViewport" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const ToastViewport = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Viewport>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
@@ -14,6 +22,7 @@ const ToastViewport = React.forwardRef<
     <ToastPrimitives.Viewport
         ref={ref}
         className={cn(
+            // Applique des classes CSS pour le style du composant de la vue des toasts.
             "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
             className
         )}
@@ -21,6 +30,8 @@ const ToastViewport = React.forwardRef<
     />
 ));
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
+
+// Définit des styles personnalisés pour les toasts en utilisant la fonction "tv".
 const toastVariants = tv({
     base: "data-[swipe=move]:transition-none group relative pointer-events-auto flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-4 pr-8 shadow-lg transition-all data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:slide-out-to-right-full",
     variants: {
@@ -35,6 +46,7 @@ const toastVariants = tv({
     },
 });
 
+// Définit le composant "Toast" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const Toast = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Root>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
@@ -50,6 +62,7 @@ const Toast = React.forwardRef<
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
 
+// Définit le composant "ToastAction" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const ToastAction = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Action>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>
@@ -57,6 +70,7 @@ const ToastAction = React.forwardRef<
     <ToastPrimitives.Action
         ref={ref}
         className={cn(
+            // Applique des classes CSS pour le style du composant d'action de toast.
             "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-destructive/30 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",
             className
         )}
@@ -65,6 +79,7 @@ const ToastAction = React.forwardRef<
 ));
 ToastAction.displayName = ToastPrimitives.Action.displayName;
 
+// Définit le composant "ToastClose" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const ToastClose = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Close>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
@@ -72,6 +87,7 @@ const ToastClose = React.forwardRef<
     <ToastPrimitives.Close
         ref={ref}
         className={cn(
+            // Applique des classes CSS pour le style du bouton de fermeture du toast.
             "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
             className
         )}
@@ -83,6 +99,7 @@ const ToastClose = React.forwardRef<
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;
 
+// Définit le composant "ToastTitle" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const ToastTitle = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Title>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
@@ -95,6 +112,7 @@ const ToastTitle = React.forwardRef<
 ));
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
+// Définit le composant "ToastDescription" en utilisant "forwardRef" pour gérer les références aux éléments DOM.
 const ToastDescription = React.forwardRef<
     React.ElementRef<typeof ToastPrimitives.Description>,
     React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
@@ -107,10 +125,13 @@ const ToastDescription = React.forwardRef<
 ));
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
+// Définit les types de propriétés pour les toasts.
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
 
+// Définit un type pour les éléments d'action de toast.
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
+// Exporte tous les composants personnalisés pour être utilisés ailleurs dans l'application.
 export {
     type ToastProps,
     type ToastActionElement,

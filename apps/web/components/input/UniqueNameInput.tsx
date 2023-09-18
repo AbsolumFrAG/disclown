@@ -2,14 +2,15 @@ import { ComponentPropsWithRef } from "react";
 import { tv } from "tailwind-variants";
 import { input } from "ui/components/input";
 
+// Utilise la fonction "tv" de Tailwind Variants pour définir les styles du composant d'entrée.
 const inputStyles = tv({
   slots: {
     root: "flex flex-row",
-    input: input({ className: "rounded-l-none" }),
+    input: input({ className: "rounded-l-none" }), // Styles de l'entrée, avec une classe CSS "rounded-l-none".
     left: [
       "rounded-l-md border-[1px] border-r-0 bg-light-50 border-accent-600 px-2 flex",
       "dark:border-accent-900 dark:bg-dark-800",
-    ],
+    ], // Styles du préfixe "@" à gauche du champ de saisie.
   },
 });
 

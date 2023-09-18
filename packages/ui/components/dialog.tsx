@@ -1,9 +1,11 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { XIcon } from "lucide-react";
-import clsx from "clsx";
-import { ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
+// Importation des modules et bibliothèques nécessaires
+import * as DialogPrimitive from "@radix-ui/react-dialog"; // Importation de composants de dialogue à partir de Radix UI
+import { XIcon } from "lucide-react"; // Importation d'une icône X à partir de Lucide React
+import clsx from "clsx"; // Importation de la bibliothèque clsx pour la gestion des classes CSS
+import { ReactNode } from "react"; // Importation de ReactNode pour représenter des éléments JSX
+import { twMerge } from "tailwind-merge"; // Importation de la fonction twMerge pour fusionner des classes Tailwind CSS
 
+// Définition des propriétés attendues par le composant SimpleDialog
 export type SimpleDialogProps = Pick<
     DialogPrimitive.DialogProps,
     "defaultOpen" | "onOpenChange" | "open"
@@ -15,6 +17,7 @@ export type SimpleDialogProps = Pick<
     contentProps?: DialogPrimitive.DialogContentProps;
 };
 
+// Définition du composant SimpleDialog
 export function SimpleDialog({
     title,
     description,
@@ -50,13 +53,14 @@ export function SimpleDialog({
     );
 }
 
+// Alias des composants de dialogue de Radix UI
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.DialogTrigger;
 const DialogClose = DialogPrimitive.DialogClose;
 
+// Définition de la fonction DialogContent
 type DialogProps = DialogPrimitive.DialogProps;
 type DialogContentProps = DialogPrimitive.DialogContentProps;
-
 function DialogContent(props: DialogPrimitive.DialogContentProps) {
     return (
         <DialogPrimitive.Portal>
@@ -77,6 +81,7 @@ function DialogContent(props: DialogPrimitive.DialogContentProps) {
     );
 }
 
+// Exportation des composants et types nécessaires
 export {
     type DialogProps,
     type DialogContentProps,

@@ -5,30 +5,34 @@ import { useForm, Controller } from "react-hook-form";
 import { Button } from "ui/components/button";
 import { textArea } from "ui/components/textarea";
 
+// Props attendues par le composant Edit
 type EditProps = {
-  inputRef: MutableRefObject<HTMLTextAreaElement | null>;
-  onCancel: () => void;
-  message: MessageType;
+  inputRef: MutableRefObject<HTMLTextAreaElement | null>; // Référence au champ de texte
+  onCancel: () => void; // Fonction pour annuler la modification
+  message: MessageType; // Objet représentant le message à éditer
 };
 
 export default function Edit({ message, inputRef, onCancel }: EditProps) {
+  // Utilisation de trpc pour la mutation de mise à jour du message
   const editMutation = trpc.chat.update.useMutation({
     onSuccess: () => {
-      onCancel();
+      onCancel(); // Appelé lorsque la mise à jour réussit pour annuler l'édition
     },
   });
 
+  // Utilisation de react-hook-form pour gérer le formulaire de modification
   const { control, handleSubmit } = useForm<{ content: string }>({
     defaultValues: {
-      content: message.content,
+      content: message.content, // Valeur initiale du champ de texte
     },
   });
 
+  // Fonction appelée lorsque le formulaire est soumis
   const onSave = handleSubmit((v) => {
     editMutation.mutate({
-      channelId: message.channel_id,
-      messageId: message.id,
-      content: v.content,
+      channelId: message.channel_id, // ID du canal du message
+      messageId: message.id, // ID du message à mettre à jour
+      content: v.content, // Nouveau contenu du message
     });
   });
 
@@ -51,18 +55,18 @@ export default function Edit({ message, inputRef, onCancel }: EditProps) {
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                return onSave();
+                return onSave(); // Appuyer sur Entrée pour enregistrer les modifications
               }
 
               if (e.key === "Escape") {
                 e.preventDefault();
-                return onCancel();
+                return onCancel(); // Appuyer sur Echap pour quitter sans enregistrer
               }
             }}
             {...field}
             ref={(e) => {
               field.ref(e);
-              inputRef.current = e;
+              inputRef.current = e; // Met à jour la référence au champ de texte
             }}
           />
         )}

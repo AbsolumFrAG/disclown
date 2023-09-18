@@ -11,6 +11,7 @@ import { Button, button } from "ui/components/button";
 import Router from "next/router";
 import { Spinner } from "ui/components/spinner";
 
+// Composant UserProfileModal pour afficher le profil d'un utilisateur
 export function UserProfileModal({
   userId,
   children,
@@ -30,6 +31,7 @@ export function UserProfileModal({
   );
 }
 
+// Composant UserProfileModalDefault pour afficher le profil d'un utilisateur avec des props personnalisées
 export default function UserProfileModalDefault({
   userId,
   ...props
@@ -45,6 +47,7 @@ export default function UserProfileModalDefault({
   );
 }
 
+// Sous-composant Content pour afficher le contenu du profil d'un utilisateur
 function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
   const utils = trpc.useContext();
   const query = trpc.account.profile.useQuery({ userId });
@@ -55,6 +58,7 @@ function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
     },
   });
 
+  // Fonction pour envoyer un message direct à l'utilisateur
   const onSendMessage = () => {
     const data = utils.dm.channels.getData();
 
@@ -73,6 +77,7 @@ function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
     });
   };
 
+  // Si les données du profil ne sont pas encore chargées, afficher un spinner de chargement
   if (query.data == null) {
     return (
       <div className="min-h-[350px] flex flex-col items-center justify-center text-center">
@@ -82,12 +87,14 @@ function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
     );
   }
 
+  // Données de l'utilisateur
   const user = query.data;
 
   return (
     <div className="flex flex-col">
       <div className="h-24 bg-brand-600 dark:bg-brand-400 rounded-lg -mb-12" />
       <div className="px-6 pb-2">
+        {/* Avatar de l'utilisateur */}
         <Avatar
           fallback={user.name}
           src={user.image}
@@ -99,6 +106,7 @@ function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
           <p className="text-sm text-muted-foreground">@{user.id}</p>
         </div>
         <div className="flex flex-row gap-3 mt-8">
+          {/* Bouton pour envoyer un message direct à l'utilisateur */}
           <Button
             color="primary"
             className="flex-1"
@@ -107,6 +115,7 @@ function Content({ userId, onClose }: { userId: string; onClose: () => void }) {
           >
             Envoyer un message
           </Button>
+          {/* Bouton pour fermer la fenêtre modale */}
           <DialogClose className={button({ color: "secondary" })}>
             Fermer
           </DialogClose>

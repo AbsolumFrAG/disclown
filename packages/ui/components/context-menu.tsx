@@ -1,7 +1,9 @@
+// Importation des modules et bibliothèques nécessaires
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import { ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
+// Définition des styles pour le composant contextMenu
 export const contextMenu = tv({
     slots: {
         content:
@@ -9,6 +11,7 @@ export const contextMenu = tv({
     },
 });
 
+// Définition des types et des styles pour le composant menuItem
 export type MenuItemVariants = VariantProps<typeof menuItem>;
 export const menuItem = tv({
     slots: {
@@ -37,10 +40,12 @@ export const menuItem = tv({
     },
 });
 
+// Exportation de certains composants de la bibliothèque ContextMenu
 export const Root = ContextMenu.Root;
 export const Trigger = ContextMenu.Trigger;
 export type ContentProps = ContextMenu.ContextMenuContentProps;
 
+// Définition du composant Content
 export function Content(props: ContextMenu.ContextMenuContentProps) {
     const styles = contextMenu({});
 
@@ -54,6 +59,7 @@ export function Content(props: ContextMenu.ContextMenuContentProps) {
     );
 }
 
+// Définition des propriétés attendues par le composant Item
 export type MenuItemProps = MenuItemVariants &
     Pick<ContextMenu.MenuItemProps, "onClick" | "disabled"> & {
         children: ReactNode;
@@ -61,6 +67,7 @@ export type MenuItemProps = MenuItemVariants &
         icon?: ReactNode;
     };
 
+// Définition du composant Item
 export function Item({
     children,
     shortcut,
@@ -81,11 +88,13 @@ export function Item({
     );
 }
 
+// Définition des propriétés attendues par le composant CheckboxItem
 export type CheckboxItemProps = MenuItemProps & {
     value: boolean;
     onChange: (v: boolean) => void;
 };
 
+// Définition du composant CheckboxItem
 export function CheckboxItem({
     children,
     shortcut,

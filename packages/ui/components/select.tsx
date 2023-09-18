@@ -1,15 +1,15 @@
-import * as React from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { CheckIcon, ChevronDownIcon } from "lucide-react";
+// Importation des modules et bibliothèques nécessaires
+import * as React from "react"; // Importation de React
+import * as SelectPrimitive from "@radix-ui/react-select"; // Importation de composants de sélection à partir de Radix UI
+import { CheckIcon, ChevronDownIcon } from "lucide-react"; // Importation des icônes Check et ChevronDown à partir de Lucide React
+import { cn } from "../utils/cn"; // Importation d'une fonction utilitaire
 
-import { cn } from "../utils/cn";
-
+// Alias des composants de sélection de Radix UI
 const Select = SelectPrimitive.Root;
-
 const SelectGroup = SelectPrimitive.Group;
-
 const SelectValue = SelectPrimitive.Value;
 
+// Définition du composant SelectTrigger
 const SelectTrigger = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Trigger>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
@@ -17,6 +17,7 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
+            // Classes CSS pour le déclencheur (trigger) du select
             "flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-brand placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             className
         )}
@@ -30,6 +31,7 @@ const SelectTrigger = React.forwardRef<
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
+// Définition du composant SelectContent
 const SelectContent = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Content>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
@@ -38,8 +40,9 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Content
             ref={ref}
             className={cn(
+                // Classes CSS pour le contenu du select
                 "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80",
-                position === "popper" && "translate-y-1",
+                position === "popper" && "translate-y-1", // Animation de popper
                 className
             )}
             position={position}
@@ -59,18 +62,24 @@ const SelectContent = React.forwardRef<
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
+// Définition du composant SelectLabel
 const SelectLabel = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Label>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className, ...props }, ref) => (
     <SelectPrimitive.Label
         ref={ref}
-        className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+        className={cn(
+            // Classes CSS pour l'étiquette du select
+            "py-1.5 pl-8 pr-2 text-sm font-semibold",
+            className
+        )}
         {...props}
     />
 ));
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
+// Définition du composant SelectItem
 const SelectItem = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Item>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
@@ -78,6 +87,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
+            // Classes CSS pour les éléments de sélection
             "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
             className
         )}
@@ -88,24 +98,29 @@ const SelectItem = React.forwardRef<
                 <CheckIcon className="h-4 w-4" />
             </SelectPrimitive.ItemIndicator>
         </span>
-
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
+// Définition du composant SelectSeparator
 const SelectSeparator = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Separator>,
     React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
     <SelectPrimitive.Separator
         ref={ref}
-        className={cn("-mx-1 my-1 h-px bg-muted", className)}
+        className={cn(
+            // Classes CSS pour le séparateur des éléments de sélection
+            "-mx-1 my-1 h-px bg-muted",
+            className
+        )}
         {...props}
     />
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+// Exportation des composants et types nécessaires
 export type SelectProps = SelectPrimitive.SelectProps;
 export {
     Select,

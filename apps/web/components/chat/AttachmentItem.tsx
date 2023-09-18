@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SmartImage } from "ui/components/smart-image";
 import Image from "next/image";
 
+// Composant pour les pièces jointes en cours de téléchargement
 export function UploadingAttachmentItem({ file }: { file: File }) {
   return (
     <div className="p-3 rounded-lg bg-light-100 dark:bg-dark-700 flex flex-col mt-3">
@@ -13,9 +14,12 @@ export function UploadingAttachmentItem({ file }: { file: File }) {
   );
 }
 
+// Préfixe de l'URL Cloudinary pour les images
 const cloudinary_prefix = "https://res.cloudinary.com/disclown/image/upload/";
 
+// Composant pour afficher une pièce jointe
 export function AttachmentItem({ attachment }: { attachment: AttachmentType }) {
+  // Vérifier si la pièce jointe est une image et peut être affichée
   if (
     attachment.type === "image" &&
     attachment.width != null &&
@@ -25,6 +29,7 @@ export function AttachmentItem({ attachment }: { attachment: AttachmentType }) {
     return <AttachmentImage attachment={attachment} />;
   }
 
+  // Afficher la pièce jointe sous forme de lien s'il ne s'agit pas d'une image
   return (
     <div className="p-3 rounded-lg bg-light-100 dark:bg-dark-700 mt-3">
       <Link
@@ -39,6 +44,7 @@ export function AttachmentItem({ attachment }: { attachment: AttachmentType }) {
   );
 }
 
+// Composant pour afficher une image en pièce jointe
 function AttachmentImage({ attachment }: { attachment: AttachmentType }) {
   const [state, setState] = useState<"loading" | "loaded">("loading");
   const url = decodeURIComponent(attachment.url).slice(

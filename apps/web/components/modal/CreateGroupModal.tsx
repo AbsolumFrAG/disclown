@@ -1,3 +1,4 @@
+// Import des modules et composants nécessaires
 import React from "react";
 import { SimpleDialog } from "ui/components/dialog";
 import { createGroupSchema } from "shared/schema/group";
@@ -11,6 +12,7 @@ import { input } from "ui/components/input";
 import { useMutation } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 
+// Composant CreateGroupModal
 export default function CreateGroupModal({
   open,
   setOpen,
@@ -19,22 +21,27 @@ export default function CreateGroupModal({
   setOpen: (open: boolean) => void;
 }) {
   return (
+    // Utilisation du composant SimpleDialog pour créer un modal de création de groupe
     <SimpleDialog
       title="Créer un groupe"
       description="Donnez à votre groupe de discussion un beau nom et une belle icône"
       open={open}
       onOpenChange={setOpen}
     >
+      {/* Contenu du modal */}
       <Content onClose={() => setOpen(false)} />
     </SimpleDialog>
   );
 }
 
+// Schéma de validation pour la création de groupe
 const schema = createGroupSchema.extend({
   icon: z.string().optional(),
 });
 
+// Composant Content pour le contenu du modal
 function Content({ onClose }: { onClose: () => void }) {
+  // Utilisation du hook useForm pour gérer le formulaire
   const { register, control, handleSubmit } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -43,10 +50,14 @@ function Content({ onClose }: { onClose: () => void }) {
     },
   });
 
+  // Utilisation du hook useCreateMutation pour gérer la mutation de création de groupe
   const mutation = useCreateMutation(onClose);
+
+  // Fonction de soumission du formulaire
   const onSubmit = handleSubmit((input) => mutation.mutate(input));
 
   return (
+    // Formulaire de création de groupe
     <form className="mt-8 space-y-2" onSubmit={onSubmit}>
       <fieldset>
         <label htmlFor="icon" className="sr-only">
@@ -56,6 +67,7 @@ function Content({ onClose }: { onClose: () => void }) {
           control={control}
           name="icon"
           render={({ field: { value, onChange, ...field } }) => (
+            // Composant ImagePicker pour choisir une icône
             <ImagePicker
               input={{ id: "icon", ...field }}
               value={value ?? null}
@@ -88,6 +100,7 @@ function Content({ onClose }: { onClose: () => void }) {
   );
 }
 
+// Hook personnalisé pour gérer la mutation de création de groupe
 function useCreateMutation(onClose: () => void) {
   const utils = trpc.useContext();
 
